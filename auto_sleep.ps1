@@ -19,7 +19,7 @@ do {
 $taskName = "AutoSleepTask_$(Get-Date -Format yyyyMMddHHmmss)"
 $intervalMinutes = $t
 $action = New-ScheduledTaskAction -Execute "rundll32.exe" -Argument "powrprof.dll,SetSuspendState 0,1,0"
-$trigger = New-ScheduledTaskTrigger -AtStartup
+$trigger = New-ScheduledTaskTrigger -At $(Get-Date).AddMinutes(1).ToString("yyyy-MM-ddTHH:mm:sszzz") -Once  #触发条件可以改变
 
 Register-ScheduledTask -TaskName $taskName -Action $action -Trigger $trigger -Description "自动睡眠任务" -User "SYSTEM" -RunLevel Highest
 # 获取已创建的任务
